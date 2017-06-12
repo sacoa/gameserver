@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="DCS.GameServer.Core.Domain.GameTransaction,DCS.GameServer.Core.Domain" table="gsTransactions"  lazy="true">
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    
+    <discriminator column="TransactionType"/>    
+    <property name="TransactionDate" not-null="true"/>
+    <property name="TransactionReference" not-null="true"/>
+        
+
+    <many-to-one name="Game"
+		  class="DCS.PlaycardBase.Core.GameDomain.Game"
+		  column="MachineId"
+		  not-null="true"
+					 
+		/>
+
+    <subclass name="DCS.GameServer.Core.Domain.Play,DCS.GameServer.Core.Domain" discriminator-value="1" lazy="false"/>
+    
+    <!-- not yet programmed!
+    <subclass name="DCS.GameServer.Core.Domain.Collection,DCS.GameServer.Core.Domain" discriminator-value="2" lazy="false"/>
+    <subclass name="DCS.GameServer.Core.Domain.Payout,DCS.GameServer.Core.Domain" discriminator-value="3" lazy="false"/>-->
+  </class>
+
+</hibernate-mapping>
